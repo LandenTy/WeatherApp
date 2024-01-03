@@ -4,13 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .weather-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
     <div class="weather-container">
         <h1>Weather App</h1>
         <div id="weather-info"></div>
     </div>
-    <script src="app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function getWeatherData(latitude, longitude) {
+            var dfd = $.Deferred();
+            var url = "https://api.openweathermap.org/data/2.5/weather?lat=";
+            url += latitude;
+            url += "&lon=";
+            url += longitude;
+            url += "&cnt=1&appid=6b2ec8a53c3d6dcb59464d174a67b8a0&units=metric";
+
+            $.ajax({
+                type: "GET",
+                dataType: "jsonp",
+                url: url,
+                async: false,
+                success: function (data) {
+                    const temperature = data.main.temp;
+                    const description = data.weather[0].description;
+                    dfd.resolve({ temperature, description });
+                },
+                error: function (errorData) {
+                    console.error("Error while getting weather data:", errorData);
+                    dfd.reject("Error while getting weather data");
+                }
+            });
+
+            return dfd.promise();
+        }
+
+        async function getWeatherByLocation() {
+            try {
+                navigator.geolocation.getCurrentPosition(
+                    async function (position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        const response = await getWeatherData(latitude, longitude);
+                        handleWeatherResponse(response);
+                    },
+                    function (error) {
+                        console.error("Error getting location:", error);
+                    }
+                );
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function celsiusToFahrenheit(celsius) {
+            return (celsius * 9/5) + 32;
+        }
+
+        function handleWeatherResponse(data) {
+            const weatherInfo = document.getElementById('weather-info');
+
+            const temperature = data.temperature;
+            const description = data.description;
+            const temperatureFahrenheit = celsiusToFahrenheit(temperature);
+
+            weatherInfo.innerHTML = `<p>Temperature: ${temperatureFahrenheit.toFixed(2)}°F</p><p>Description: ${description}</p>`;
+        }
+
+        // Example: Get weather using geolocation
+        getWeatherByLocation();
+    </script>
 </body>
 </html>
