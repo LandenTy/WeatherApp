@@ -5,7 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
     async function getWeather(city) {
         try {
             const protocol = window.location.protocol;
-            const response = await fetch(`${protocol}//api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
+            const url = `${protocol}//api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
             const data = await response.json();
 
             if (response.ok) {
