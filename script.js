@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
+    const apiKey = '6b2ec8a53c3d6dcb59464d174a67b8a0';
     const weatherInfo = document.getElementById('weather-info');
 
     async function getWeather(city) {
@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 weatherInfo.innerHTML = `<p>Temperature: ${temperature}°C</p><p>Description: ${description}</p>`;
             } else {
-                weatherInfo.innerHTML = '<p>Error fetching weather data</p>';
+                const errorMessage = `Error: ${data.message || 'Unknown error'}`;
+                weatherInfo.innerHTML = `<p>${errorMessage}</p>`;
             }
         } catch (error) {
-            console.error('Error:', error);
+            const errorMessage = `Error: ${error.message || 'Unknown error'}`;
+            weatherInfo.innerHTML = `<p>${errorMessage}</p>`;
         }
     }
 
