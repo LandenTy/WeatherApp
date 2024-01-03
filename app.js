@@ -1,19 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const apiKey = '6b2ec8a53c3d6dcb59464d174a67b8a0';
+    const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
     const weatherInfo = document.getElementById('weather-info');
 
     async function getWeather(city) {
         try {
             const protocol = window.location.protocol;
-            const url = `${protocol}//api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
+            const response = await fetch(`${protocol}//api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
             const data = await response.json();
 
             if (response.ok) {
@@ -22,12 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 weatherInfo.innerHTML = `<p>Temperature: ${temperature}°C</p><p>Description: ${description}</p>`;
             } else {
-                const errorMessage = `Error: ${data.message || 'Unknown error'}`;
-                weatherInfo.innerHTML = `<p>${errorMessage}</p>`;
+                weatherInfo.innerHTML = '<p>Error fetching weather data</p>';
             }
         } catch (error) {
-            const errorMessage = `Error: ${error.message || 'Unknown error'}`;
-            weatherInfo.innerHTML = `<p>${errorMessage}</p>`;
+            console.error('Error:', error);
         }
     }
 
