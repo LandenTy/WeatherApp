@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const apiKey = '6b2ec8a53c3d6dcb59464d174a67b8a0';
+    const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
     const weatherInfo = document.getElementById('weather-info');
 
     async function getWeather(city) {
         try {
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
+            const protocol = window.location.protocol;
+            const response = await fetch(`${protocol}//api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
             const data = await response.json();
 
             if (response.ok) {
