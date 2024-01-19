@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 100px;
+    height: 87vh;
+    background-color: #eaecef;
+    position: absolute;
+    top: 0;
+    left: 25px;
+    padding: 25px;
+    border-radius: 25px;
+    margin-top: 25px;
+}
+
+.tab {
+    color: #333;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.tab:hover {
+    background-color: #189ad9;
+}
+
+.tab.selected {
+    background-color: #212c3c;
+    color: #fff;
+}
+
+.content {
+    margin-left: 75px;
+    padding: 25px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.background {
+    position: relative;
+}
+
+.weather-container {
+    position: relative;
+    z-index: 1;
+}
+
+.forecast-panel {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    width: 300px;
+    background-color: #eaecef;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #b1b6bd; /* Set text color for the entire forecast panel */
+}
+
+#day {
+    color: #b1b6bd;
+}
+
+#forecast-info {
+    color: #000;
+}
+
+#forecast-list li {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+#forecast-list p {
+    margin: 0;
+}
+
+#forecast-list strong {
+    font-weight: bold;
+}
+
+#forecast-list .description {
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+#forecast-list .high-low {
+    padding-left: 5px;
+}
+
+.forecast-panel h2 {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+#forecast-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.content header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.chance-of-precipitation {
+    font-size: 14px;
+    text-align: center;
+}
+
+.search-bar {
+    text-align: center;
+    margin-bottom: 15px; /* Add margin for separation from the header */
+}
+
+.search-input {
+    padding: 8px;
+    font-size: 14px;
+}
+
+.search-button {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: #189ad9;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
